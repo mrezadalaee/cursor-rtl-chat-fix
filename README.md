@@ -1,6 +1,6 @@
 # Cursor Editor RTL Support Snippet 🚀
 
-A simple JavaScript snippet to fix **Right-to-Left (RTL)** text rendering issues (Persian, Arabic, Hebrew) in the **Cursor** editor's AI Chat.
+A simple JavaScript snippet to fix **Right-to-Left (RTL)** text rendering issues (Persian, Arabic) in the **Cursor** editor's AI Chat.
 
 Currently, Cursor does not fully support RTL directionality in its chat interface, causing mixed English/RTL sentences to scramble. This snippet forces the correct direction without breaking code blocks.
 
