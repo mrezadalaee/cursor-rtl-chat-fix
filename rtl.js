@@ -1,11 +1,13 @@
 (function() {
     const style = document.createElement('style');
     style.textContent = `
-        /* Fix RTL for Chat Messages */
+        /* Fix RTL for Chat Messages & Composer Questions */
         .markdown-section, 
         .anysphere-markdown-container-root,
         [class*="composer-human-ai-pair-container"],
-        .chat-message-content {
+        .chat-message-content,
+        .composer-questionnaire-toolbar,
+        #composer-toolbar-section {
             direction: rtl !important;
             text-align: right !important;
             unicode-bidi: plaintext !important;
