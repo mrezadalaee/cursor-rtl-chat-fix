@@ -1,42 +1,53 @@
 (function() {
     const style = document.createElement('style');
     style.textContent = `
-        /* 1. Chat & Questions (Smart RTL/LTR detection) */
-        .markdown-section, 
-        .anysphere-markdown-container-root,
-        [class*="composer-human-ai-pair-container"],
-        .chat-message-content,
-        .composer-questionnaire-toolbar,
-        #composer-toolbar-section {
-            direction: rtl !important;
-            text-align: right !important;
-            unicode-bidi: plaintext !important;
-        }
-
-        /* 2. Plan Mode (Strict RTL to fix bullet points alignment) */
-        .markdown-lexical-editor-root,
-        [class*="markdown-plan-editor"] {
+        /* 1. AI Responses (Markdown) */
+        .anysphere-markdown-container-root, 
+        .markdown-section {
             direction: rtl !important;
             text-align: right !important;
         }
 
-        /* 3. Fix Question Buttons Order */
-        .composer-questionnaire-toolbar .monaco-button {
-            flex-direction: row-reverse !important;
+        /* 2. User Input & History (Lexical Editor) */
+        .aislash-editor-input, 
+        .aislash-editor-input-readonly,
+        .composer-human-message {
+            direction: rtl !important;
+            text-align: right !important;
         }
 
-        /* 4. Keep Code Blocks LTR */
+        /* 3. Input Placeholder (Plan, @ for context...) */
+        .aislash-editor-placeholder {
+            direction: rtl !important;
+            text-align: right !important;
+            right: 15px !important;
+            left: auto !important;
+        }
+
+        /* 4. Fix List Bullets in RTL */
+        .markdown-section ul, 
+        .markdown-section ol {
+            padding-right: 20px !important;
+            padding-left: 0 !important;
+        }
+
+        /* 5. Keep Code Blocks LTR (CRITICAL) */
         code, 
         pre, 
-        .markdown-inline-code,
-        [class*="monaco-editor"],
-        .token {
+        .markdown-code-outer-container,
+        .cursor-code-block-content,
+        .monaco-editor {
             direction: ltr !important;
             text-align: left !important;
-            unicode-bidi: normal !important;
-            display: inline-block;
+            unicode-bidi: plaintext !important;
+        }
+        
+        /* Fix for inline code inside RTL text */
+        .markdown-section code {
+            display: inline-block; 
+            direction: ltr;
         }
     `;
     document.head.appendChild(style);
-    console.log("%c RTL Fix Applied (Chat + Plan Mode)! ", "background: #222; color: #bada55; font-size: 15px;");
+    console.log("%c Cursor RTL Fix Updated (Lexical Engine)! ", "background: #4caf50; color: #fff; font-size: 14px; padding: 4px; border-radius: 4px;");
 })();
