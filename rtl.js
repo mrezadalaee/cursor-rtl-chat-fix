@@ -33,7 +33,7 @@
 
         /* --- 5. TABLE FIXES (Independent Scrolling) --- */
         .markdown-table-container {
-            direction: ltr !important; /* Keep standard scrollbar direction */
+            direction: ltr !important; 
             overflow-x: auto !important;
             max-width: 100% !important;
             display: block !important;
@@ -70,15 +70,13 @@
             direction: ltr;
         }
 
-        /* --- 7. PLAN MODE / QUESTIONNAIRE FIXES (NEW) --- */
-        /* Main questions container */
+        /* --- 7. PLAN MODE / QUESTIONNAIRE FIXES --- */
         #composer-toolbar-section,
         .composer-questionnaire-toolbar {
             direction: rtl !important;
             text-align: right !important;
         }
 
-        /* Questions header (Questions + stepper) */
         .composer-questionnaire-toolbar-header {
             direction: rtl !important;
             display: flex !important;
@@ -86,13 +84,11 @@
             justify-content: space-between !important;
         }
 
-        /* Question text */
         .composer-questionnaire-toolbar-question-label {
             text-align: right !important;
             direction: rtl !important;
         }
 
-        /* Options (A, B, C) */
         .composer-questionnaire-toolbar-option {
             direction: rtl !important;
             display: flex !important;
@@ -102,26 +98,64 @@
             text-align: right !important;
         }
 
-        /* Space between option letter (A) and option text */
         .composer-questionnaire-toolbar-option-label {
             margin-right: 8px !important;
             margin-left: 0 !important;
         }
 
-        /* Text inputs inside options (Other...) */
         .composer-questionnaire-toolbar-freeform-input {
             text-align: right !important;
             direction: rtl !important;
         }
 
-        /* Bottom buttons (Skip / Continue) */
         .composer-questionnaire-toolbar-actions {
             direction: rtl !important;
             display: flex !important;
-            flex-direction: row-reverse !important; /* Let Continue button fall to the left */
+            flex-direction: row-reverse !important; 
             justify-content: flex-end !important;
+        }
+
+        /* --- 8. TO-DO LIST FIXES (NEW) --- */
+        /* Main todo list container */
+        .todo-list-container {
+            direction: rtl !important;
+            text-align: right !important;
+        }
+
+        /* List header (To-dos) */
+        .todo-list-header {
+            direction: rtl !important;
+            display: flex !important;
+            flex-direction: row !important;
+        }
+
+        .todo-list-header-left {
+            direction: rtl !important;
+            display: flex !important;
+            justify-content: flex-start !important;
+        }
+
+        /* Each todo row (checkbox + text) */
+        .todo-label {
+            direction: rtl !important;
+            text-align: right !important;
+            display: flex !important;
+            align-items: flex-start !important; /* Proper alignment for multi-line text */
+        }
+
+        /* Checkbox-to-text spacing */
+        .todo-indicator-container {
+            margin-left: 8px !important; /* Left spacing for checkbox */
+            margin-right: 0 !important;  /* Remove right spacing (LTR default) */
+            margin-top: 4px !important; /* Align with first line of text */
+        }
+
+        /* Todo text content */
+        .todo-content {
+            text-align: right !important;
+            unicode-bidi: plaintext !important;
         }
     `;
     document.head.appendChild(style);
-    console.log("%c RTL Fix Updated (Plan Mode + Tables)! ", "background: #e91e63; color: #fff; font-size: 14px; padding: 4px; border-radius: 4px;");
+    console.log("%c RTL Fix Updated (Todo List Added)! ", "background: #9c27b0; color: #fff; font-size: 14px; padding: 4px; border-radius: 4px;");
 })();
