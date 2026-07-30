@@ -1,80 +1,99 @@
-/**
- * Claude Desktop RTL Support Script
- * Paste this in Claude Desktop's Developer Tools Console to enable RTL for Persian/Arabic text.
- */
-(function() {
-    // Prevent multiple execution
-    if (document.getElementById('smart-rtl-style')) return;
+(() => {
+  const STYLE_ID = "chat-only-rtl-injection";
 
-    const style = document.createElement('style');
-    style.id = 'smart-rtl-style';
-    style.innerHTML = `
-        /* RTL for message bodies, titles, and input area */
-        .font-claude-response-body, 
-        .standard-markdown, 
-        .ProseMirror,
-        [data-testid="user-message"] {
-            direction: rtl !important;
-            text-align: right !important;
-        }
+  document.getElementById(STYLE_ID)?.remove();
 
-        .standard-markdown p, 
-        .standard-markdown h1, 
-        .standard-markdown h2, 
-        .standard-markdown h3, 
-        .standard-markdown h4, 
-        .standard-markdown h5, 
-        .standard-markdown h6 {
-            text-align: right !important;
-        }
+  const css = `
+    /*
+      Scope: only chat messages + composer
+      Do NOT touch html/body/sidebar/header.
+    */
 
-        /* Keep LTR for code blocks and terminals */
-        pre, 
-        .code-block__code, 
-        [role="group"][aria-label="Code"],
-        [data-language] {
-            direction: ltr !important;
-            text-align: left !important;
-        }
+    /* User message text */
+    [role="feed"] [data-testid="user-message"],
+    [role="feed"] [data-testid="user-message"] p,
+    [role="feed"] [data-user-message-bubble="true"],
+    [role="feed"] [data-user-message-bubble="true"] p {
+      direction: rtl !important;
+      text-align: right !important;
+      unicode-bidi: plaintext !important;
+    }
 
-        /* Isolate inline code to prevent RTL breakage */
-        code {
-            unicode-bidi: isolate;
-            direction: ltr !important;
-        }
+    /* Assistant markdown text only */
+    [role="feed"] .font-claude-response .standard-markdown,
+    [role="feed"] .font-claude-response .progressive-markdown,
+    [role="feed"] .font-claude-response .standard-markdown p,
+    [role="feed"] .font-claude-response .progressive-markdown p,
+    [role="feed"] .font-claude-response .standard-markdown li,
+    [role="feed"] .font-claude-response .progressive-markdown li,
+    [role="feed"] .font-claude-response .standard-markdown blockquote,
+    [role="feed"] .font-claude-response .progressive-markdown blockquote,
+    [role="feed"] .font-claude-response .standard-markdown h1,
+    [role="feed"] .font-claude-response .standard-markdown h2,
+    [role="feed"] .font-claude-response .standard-markdown h3,
+    [role="feed"] .font-claude-response .standard-markdown h4,
+    [role="feed"] .font-claude-response .standard-markdown h5,
+    [role="feed"] .font-claude-response .standard-markdown h6,
+    [role="feed"] .font-claude-response .progressive-markdown h1,
+    [role="feed"] .font-claude-response .progressive-markdown h2,
+    [role="feed"] .font-claude-response .progressive-markdown h3,
+    [role="feed"] .font-claude-response .progressive-markdown h4,
+    [role="feed"] .font-claude-response .progressive-markdown h5,
+    [role="feed"] .font-claude-response .progressive-markdown h6 {
+      direction: rtl !important;
+      text-align: right !important;
+      unicode-bidi: plaintext !important;
+    }
 
-        /* Fix padding for bullet and numbered lists */
-        .standard-markdown ul, 
-        .standard-markdown ol,
-        [data-testid="user-message"] ul,
-        [data-testid="user-message"] ol {
-            padding-right: 2rem !important;
-            padding-left: 0 !important;
-        }
+    /* Persian/RTL lists */
+    [role="feed"] .font-claude-response .standard-markdown ul,
+    [role="feed"] .font-claude-response .standard-markdown ol,
+    [role="feed"] .font-claude-response .progressive-markdown ul,
+    [role="feed"] .font-claude-response .progressive-markdown ol,
+    [role="feed"] [data-testid="user-message"] ul,
+    [role="feed"] [data-testid="user-message"] ol {
+      direction: rtl !important;
+      text-align: right !important;
+      padding-right: 1.75rem !important;
+      padding-left: 0 !important;
+    }
 
-        /* Fix table direction */
-        .standard-markdown table {
-            direction: rtl !important;
-        }
-        .standard-markdown th, 
-        .standard-markdown td {
-            text-align: right !important;
-        }
+    /* Composer / message input only */
+    textarea,
+    [contenteditable="true"][role="textbox"],
+    [role="textbox"] {
+      direction: rtl !important;
+      text-align: right !important;
+      unicode-bidi: plaintext !important;
+    }
 
-        /* Fix placeholder in message input */
-        .ProseMirror p.is-empty::before {
-            right: 0 !important;
-            left: auto !important;
-        }
-        
-        /* Keep copy buttons LTR to prevent UI breakage */
-        button[aria-label="Copy to clipboard"],
-        button[aria-label="Copy"],
-        [data-testid="action-bar-copy"] {
-            direction: ltr !important;
-        }
-    `;
-    
-    document.head.appendChild(style);
-    console.log("%c✔ Page RTL applied successfully.", "color: #fff; background-color: #4caf50; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 14px;");
+    /* Keep code, shell commands, paths, logs LTR */
+    [role="feed"] pre,
+    [role="feed"] code,
+    [role="feed"] kbd,
+    [role="feed"] samp,
+    [role="feed"] pre *,
+    [role="feed"] code *,
+    [role="feed"] .cm-editor,
+    [role="feed"] .cm-content,
+    [role="feed"] [class*="language-"] {
+      direction: ltr !important;
+      text-align: left !important;
+      unicode-bidi: isolate !important;
+    }
+
+    /* Inline code should not break inside Persian sentences */
+    [role="feed"] p code,
+    [role="feed"] li code {
+      direction: ltr !important;
+      unicode-bidi: isolate !important;
+    }
+  `;
+
+  const style = document.createElement("style");
+  style.id = STYLE_ID;
+  style.textContent = css;
+  document.head.appendChild(style);
+
+  console.log("✅ Chat-only RTL applied. Sidebar/header untouched.");
 })();
