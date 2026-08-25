@@ -12,6 +12,7 @@ Currently, many AI tools do not fully support RTL directionality in their chat i
 | [`opencode-rtl.js`](opencode-rtl.js) | **Opencode** CLI Chat | Smart per-element RTL detection |
 | [`claude-rtl.js`](claude-rtl.js) | **Claude Desktop** | CSS injection |
 | [`antigravity-rtl.js`](antigravity-rtl.js) | **Antigravity** IDE | Smart per-element RTL detection |
+| [`deepseek-harness-rtl.js`](deepseek-harness-rtl.js) | **DeepSeek Harness** Web GUI | Smart per-element RTL detection |
 
 ## ✨ Features
 
@@ -47,6 +48,13 @@ Currently, many AI tools do not fully support RTL directionality in their chat i
 1. Open the [`antigravity-rtl.js`](antigravity-rtl.js) file and copy its content.
 2. Open **Antigravity IDE**.
 3. Press `Ctrl + Shift + P` (or `Cmd + Shift + P` on Mac) → **`Toggle Developer Tools`**.
+4. Go to the **Console** tab, paste the code, and press **Enter**.
+
+### DeepSeek Harness
+
+1. Open the [`deepseek-harness-rtl.js`](deepseek-harness-rtl.js) file and copy its content.
+2. Open **DeepSeek Harness** Web GUI.
+3. Press `F12` or `Ctrl + Shift + I` to open Developer Tools.
 4. Go to the **Console** tab, paste the code, and press **Enter**.
 
 > **Note:** These are temporary fixes injected into the running instance. You will need to re-apply the snippet if you completely restart the application.
